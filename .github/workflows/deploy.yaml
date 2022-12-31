@@ -1,0 +1,62 @@
+name: Build and Deploy to Google Cloud
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - id: 'checkout'
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - id: 'setup-versions'
+        name: Configure versions
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - id: 'check-versions'
+        name: Check versions
+        run: node -v && npm -v
+
+      - id: 'install-and-build'
+        name: Install NPM dependencies and build project
+        run: npm ci && npm run build
+
+      - id: 'compress-file'
+        uses: montudor/action-zip@v1
+        name: Compress build and upload
+        run: zip -qq -r ${{ github.run_id }}-${{ github.sha }}.zip build
+
+      - id: 'auth-to-gcp'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
+
+      - id: 'upload-file'
+        uses: 'google-github-actions/upload-cloud-storage@v1'
+        with:
+          path: '${{ github.run_id }}-${{ github.sha }}.zip'
+          destination: '${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
+
+      - id: 'execute-remote-update'
+        name: Notify running instance there is a new update available
+        uses: 'google-github-actions/ssh-compute@v0'
+        with:
+          instance_name: 'instance-1'
+          zone: 'us-central1-a'
+          ssh_private_key: '${{ secrets.GCP_SSH_PRIVATE_KEY }}'
+          command: 'sh ${{ secrets.GCP_REMOTE_UPDATE_COMMAND_PATH }}'
