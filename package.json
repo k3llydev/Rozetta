@@ -1,0 +1,24 @@
+{
+  "name": "dev-bot",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "author": "k3llydev",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./build/",
+    "build": "tsc --build",
+    "postbuild": "ts-node ./helpers/postbuild.ts",
+    "dev:run": "yarn build && yarn start",
+    "dev:watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec yarn dev:run"
+  },
+  "dependencies": {
+    "@sapphire/framework": "^3.1.4",
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1"
+  }
+}
