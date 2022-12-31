@@ -39,7 +39,8 @@ jobs:
       - id: 'compress-file'
         uses: montudor/action-zip@v1
         name: Compress build and upload
-        run: zip -qq -r ${{ github.run_id }}-${{ github.sha }}.zip build
+        with:
+          args: zip -qq -r ${{ github.run_id }}-${{ github.sha }}.zip build
 
       - id: 'auth-to-gcp'
         uses: 'google-github-actions/auth@v1'
