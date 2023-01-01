@@ -53,7 +53,7 @@ jobs:
         name: Upload new build to bucket
         with:
           path: '${{ github.run_id }}-${{ github.sha }}.zip'
-          destination: '${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
+          destination: '${{ secrets.STORAGE_BUCKET_NAME }}/'
 
       - id: 'execute-remote-update'
         name: Notify running instance there is a new update available
