@@ -44,11 +44,13 @@ jobs:
 
       - id: 'auth-to-gcp'
         uses: 'google-github-actions/auth@v1'
+        name: Authenticate agains Google Cloud
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
 
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v1'
+        name: Upload new build to bucket
         with:
           path: '${{ github.run_id }}-${{ github.sha }}.zip'
           destination: '${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
@@ -60,4 +62,4 @@ jobs:
           instance_name: 'instance-1'
           zone: 'us-central1-a'
           ssh_private_key: '${{ secrets.GCP_SSH_PRIVATE_KEY }}'
-          command: 'sh ${{ secrets.GCP_REMOTE_UPDATE_COMMAND_PATH }}'
+          command: 'sh ${{ secrets.GCP_REMOTE_UPDATE_COMMAND_PATH }} ${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
