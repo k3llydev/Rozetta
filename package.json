@@ -12,6 +12,7 @@
     "dev:watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec yarn dev:run"
   },
   "dependencies": {
+    "@jsbits/get-package-version": "^1.0.3",
     "@sapphire/framework": "^3.1.4",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.3"
