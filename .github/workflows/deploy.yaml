@@ -44,7 +44,7 @@ jobs:
 
       - id: 'auth-to-gcp'
         uses: 'google-github-actions/auth@v1'
-        name: Authenticate agains Google Cloud
+        name: Authenticate against Google Cloud
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS_JSON }}'
 
@@ -60,6 +60,7 @@ jobs:
         uses: 'google-github-actions/ssh-compute@v0'
         with:
           instance_name: 'instance-1'
+          user: '${{ secrets.GCP_COMPUTE_INSTANCE_USER }}'
           zone: 'us-central1-a'
           ssh_private_key: '${{ secrets.GCP_SSH_PRIVATE_KEY }}'
           command: 'sh ${{ secrets.GCP_REMOTE_UPDATE_COMMAND_PATH }} ${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
