@@ -63,4 +63,4 @@ jobs:
           user: '${{ secrets.GCP_COMPUTE_INSTANCE_USER }}'
           zone: 'us-central1-a'
           ssh_private_key: '${{ secrets.GCP_SSH_PRIVATE_KEY }}'
-          command: 'sh ${{ secrets.GCP_REMOTE_UPDATE_COMMAND_PATH }} ${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip'
+          command: 'echo "${{ secrets.STORAGE_BUCKET_NAME }}/${{ github.run_id }}-${{ github.sha }}.zip" > ${{ secrets.GCP_REMOTE_INSTANCE_LATEST_FILENAME }}'
