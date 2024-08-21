@@ -1,0 +1,58 @@
+version: '1'
+
+services:
+
+  redis:
+    container_name: Redis
+    image: redis
+    env_file:
+      - .env
+    ports:
+      - 6379:6379 # TODO: Remove once deploying to prod
+    volumes:
+      - redis:/data
+
+  mysql:
+    container_name: MySQL
+    build:
+      context: ./.docker/mysql/
+      args:
+        MYSQL_USERNAME: xd
+        MYSQL_PASSWORD: xd
+        MYSQL_DATABASE: xd
+        MYSQL_ROOT_PASSWORD: xd
+    container_name: mysql
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3306:3306 # TODO: Remove once deploying to prod
+
+  app:
+    container_name: NodeJS
+    build: ./
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - redis
+
+  nginx:
+    container_name: NGINX
+    build: ./.docker/nginx/
+    env_file:
+      - .env
+    depends_on:
+      - app
+
+  # TODO: Remove when deploying to prod
+  adminer:
+    container_name: AdminerSQL
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  redis:
+    driver: local

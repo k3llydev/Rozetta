@@ -1,0 +1,11 @@
+{
+    "create-success": "Multiverse {name} was created.",
+    "error-cant-create-more-multiverses": "You can't create more than {max} multiverses.",
+    "error-invalid-multiverse-name": "Invalid multiverse name. Please make sure the length is between {min} and {max} and only use alphanumeric characters.",
+    "error-name-in-use": "The name {name} is already in use. Please choose another one.",
+    "create-invalid-name-error": "Invalid multiverse name.",
+    "about-message-title": "{name} multiverse",
+    "about-message-description": "This space is designated for the global multiverse created to show information for your multiverse. Your multiverse currently has {points} points.",
+    "invite-bot-not-allowed": "Inviting bot is not yet allowed.",
+    "config-updated": "Configuration was successfully updated."
+}

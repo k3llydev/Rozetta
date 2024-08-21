@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Multiverses {
+  id        String @id @unique
+  name      String @unique
+  ownerId   String @unique
+  points    BigInt @default(0)
+  xp        BigInt @default(0)
+
+  ownerUser Users                     @relation(fields: [ownerId], references: [id])
+  guilds    MultiversesGuilds[]
+  invites   MultiversesUsersInvites[]
+  config    MultiversesConfig[]
+  users     MultiversesUsers[]
+}
+
+model Channels {
+  id                       String                     @id
+  type                     String
+  MultiversesGuildChannels MultiversesGuildChannels[]
+}
+
+model MultiversesRoles {
+  id               String             @id
+  label            String
+  privileges       String
+  MultiversesUsers MultiversesUsers[]
+}
+
+model Guilds {
+  id       String  @id
+  isActive Boolean
+
+  multiverseGuilds MultiversesGuilds[]
+}
+
+model MultiversesUsers {
+  id           String @id
+  multiverseId String
+  userId       String
+  roleId       String
+
+  multiverse Multiverses      @relation(fields: [multiverseId], references: [id])
+  user       Users            @relation(fields: [userId], references: [id])
+  role       MultiversesRoles @relation(fields: [roleId], references: [id])
+}
+
+model MultiversesGuilds {
+  id           String @id
+  multiverseId String
+  guildId      String
+
+  multiverse Multiverses                @relation(fields: [multiverseId], references: [id])
+  guild      Guilds                     @relation(fields: [guildId], references: [id])
+  channels   MultiversesGuildChannels[]
+}
+
+model MultiversesGuildMessages {
+  id        String @id
+  channelId String
+  messageId String
+  type      String
+
+  channel MultiversesGuildChannels @relation(fields: [channelId], references: [id])
+  message Messages                 @relation(fields: [messageId], references: [id])
+}
+
+model Users {
+  id        String @id
+  discordId String @unique
+  points    BigInt @default(0)
+  xp        BigInt @default(0)
+
+  multiverseUsers  MultiversesUsers[]
+  invites          MultiversesUsersInvites[]
+  ownedMultiverses Multiverses[]
+  session          HttpSessions?
+}
+
+model MultiversesGuildChannels {
+  id                String @id
+  multiverseGuildId String
+  channelId         String
+  type              String
+
+  multiverseGuild          MultiversesGuilds          @relation(fields: [multiverseGuildId], references: [id])
+  channel                  Channels                   @relation(fields: [channelId], references: [id])
+  MultiversesGuildMessages MultiversesGuildMessages[]
+}
+
+model MultiversesUsersInvites {
+  id           String @id
+  userId       String
+  multiverseId String
+
+  user       Users       @relation(fields: [userId], references: [id])
+  multiverse Multiverses @relation(fields: [multiverseId], references: [id])
+}
+
+model MultiversesConfig {
+  id           String @id
+  multiverseId String
+  key          String
+  value        String
+
+  multiverse Multiverses @relation(fields: [multiverseId], references: [id])
+}
+
+model Messages {
+  id                       String                     @id
+  type                     String
+  MultiversesGuildMessages MultiversesGuildMessages[]
+}
+
+model HttpSessions {
+  id           String   @id
+  accessToken  String   @unique
+  refreshToken String   @unique
+  expiresAt    DateTime
+  userId       String   @unique
+  // createdAt    DateTime @default(now())
+  // updatedAt    DateTime @updatedAt
+
+  user         Users    @relation(fields: [userId], references: [id])
+}

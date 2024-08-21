@@ -1,0 +1,5 @@
+{
+    "multiverse-created": "Multiverse was created by <@{userId}>.",
+    "user-joined-multiverse": "<@{userId}> joined!",
+    "user-invited-by": "Invited by: <@{userId}>"
+}

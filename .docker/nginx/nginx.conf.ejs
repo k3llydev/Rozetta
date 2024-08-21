@@ -1,0 +1,21 @@
+upstream therealmultiverse {
+
+  # Disables sticky sessions
+  # ip_hash;
+
+  # Application shards<% for(let i = 0; i < totalShards; i++) { %>
+  <%- "server localhost:" + (5000 + i) + ";" -%>
+  <% } %>
+}
+  
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  
+  server_name _;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+  
+}
