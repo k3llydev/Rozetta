@@ -15,7 +15,7 @@ export class DatabaseMultiversesUsersService {
     ) {}
 
     private get model() {
-        return this.database.multiversesUsers;
+        return this.database.planetsUsers;
     }
 
     create({ multiverseId, userId, roleId }: CreateProps) {

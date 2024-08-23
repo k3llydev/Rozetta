@@ -7,69 +7,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Multiverses {
-  id        String @id @unique
-  name      String @unique
-  ownerId   String @unique
-  points    BigInt @default(0)
-  xp        BigInt @default(0)
+model Planets {
+  id      String @id @unique
+  name    String @unique
+  ownerId String @unique
+  points  BigInt @default(0)
+  xp      BigInt @default(0)
 
-  ownerUser Users                     @relation(fields: [ownerId], references: [id])
-  guilds    MultiversesGuilds[]
-  invites   MultiversesUsersInvites[]
-  config    MultiversesConfig[]
-  users     MultiversesUsers[]
+  ownerUser Users                 @relation(fields: [ownerId], references: [id])
+  guilds    PlanetsGuilds[]
+  invites   PlanetsUsersInvites[]
+  config    PlanetsConfig[]
+  users     PlanetsUsers[]
 }
 
 model Channels {
-  id                       String                     @id
-  type                     String
-  MultiversesGuildChannels MultiversesGuildChannels[]
+  id                   String                 @id
+  type                 String
+  PlanetsGuildChannels PlanetsGuildChannels[]
 }
 
-model MultiversesRoles {
-  id               String             @id
-  label            String
-  privileges       String
-  MultiversesUsers MultiversesUsers[]
+model PlanetsRoles {
+  id           String         @id
+  label        String
+  privileges   String
+  PlanetsUsers PlanetsUsers[]
 }
 
 model Guilds {
   id       String  @id
   isActive Boolean
 
-  multiverseGuilds MultiversesGuilds[]
+  planetGuilds PlanetsGuilds[]
 }
 
-model MultiversesUsers {
-  id           String @id
-  multiverseId String
-  userId       String
-  roleId       String
+model PlanetsUsers {
+  id       String @id
+  planetId String
+  userId   String
+  roleId   String
 
-  multiverse Multiverses      @relation(fields: [multiverseId], references: [id])
-  user       Users            @relation(fields: [userId], references: [id])
-  role       MultiversesRoles @relation(fields: [roleId], references: [id])
+  planet Planets      @relation(fields: [planetId], references: [id])
+  user   Users        @relation(fields: [userId], references: [id])
+  role   PlanetsRoles @relation(fields: [roleId], references: [id])
 }
 
-model MultiversesGuilds {
-  id           String @id
-  multiverseId String
-  guildId      String
+model PlanetsGuilds {
+  id       String @id
+  planetId String
+  guildId  String
 
-  multiverse Multiverses                @relation(fields: [multiverseId], references: [id])
-  guild      Guilds                     @relation(fields: [guildId], references: [id])
-  channels   MultiversesGuildChannels[]
+  planet   Planets                @relation(fields: [planetId], references: [id])
+  guild    Guilds                 @relation(fields: [guildId], references: [id])
+  channels PlanetsGuildChannels[]
 }
 
-model MultiversesGuildMessages {
+model PlanetsGuildMessages {
   id        String @id
   channelId String
   messageId String
   type      String
 
-  channel MultiversesGuildChannels @relation(fields: [channelId], references: [id])
-  message Messages                 @relation(fields: [messageId], references: [id])
+  channel PlanetsGuildChannels @relation(fields: [channelId], references: [id])
+  message Messages             @relation(fields: [messageId], references: [id])
 }
 
 model Users {
@@ -78,45 +78,45 @@ model Users {
   points    BigInt @default(0)
   xp        BigInt @default(0)
 
-  multiverseUsers  MultiversesUsers[]
-  invites          MultiversesUsersInvites[]
-  ownedMultiverses Multiverses[]
-  session          HttpSessions?
+  planetUsers  PlanetsUsers[]
+  invites      PlanetsUsersInvites[]
+  ownedPlanets Planets[]
+  session      HttpSessions?
 }
 
-model MultiversesGuildChannels {
-  id                String @id
-  multiverseGuildId String
-  channelId         String
-  type              String
+model PlanetsGuildChannels {
+  id            String @id
+  planetGuildId String
+  channelId     String
+  type          String
 
-  multiverseGuild          MultiversesGuilds          @relation(fields: [multiverseGuildId], references: [id])
-  channel                  Channels                   @relation(fields: [channelId], references: [id])
-  MultiversesGuildMessages MultiversesGuildMessages[]
+  planetGuild          PlanetsGuilds          @relation(fields: [planetGuildId], references: [id])
+  channel              Channels               @relation(fields: [channelId], references: [id])
+  PlanetsGuildMessages PlanetsGuildMessages[]
 }
 
-model MultiversesUsersInvites {
-  id           String @id
-  userId       String
-  multiverseId String
+model PlanetsUsersInvites {
+  id       String @id
+  userId   String
+  planetId String
 
-  user       Users       @relation(fields: [userId], references: [id])
-  multiverse Multiverses @relation(fields: [multiverseId], references: [id])
+  user   Users   @relation(fields: [userId], references: [id])
+  planet Planets @relation(fields: [planetId], references: [id])
 }
 
-model MultiversesConfig {
-  id           String @id
-  multiverseId String
-  key          String
-  value        String
+model PlanetsConfig {
+  id       String @id
+  planetId String
+  key      String
+  value    String
 
-  multiverse Multiverses @relation(fields: [multiverseId], references: [id])
+  planet Planets @relation(fields: [planetId], references: [id])
 }
 
 model Messages {
-  id                       String                     @id
-  type                     String
-  MultiversesGuildMessages MultiversesGuildMessages[]
+  id                   String                 @id
+  type                 String
+  PlanetsGuildMessages PlanetsGuildMessages[]
 }
 
 model HttpSessions {
@@ -128,5 +128,5 @@ model HttpSessions {
   // createdAt    DateTime @default(now())
   // updatedAt    DateTime @updatedAt
 
-  user         Users    @relation(fields: [userId], references: [id])
+  user Users @relation(fields: [userId], references: [id])
 }

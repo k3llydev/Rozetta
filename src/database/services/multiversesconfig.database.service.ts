@@ -14,14 +14,14 @@ export class DatabaseMultiversesConfigService {
         private readonly database: DatabaseConnectionService
     ) {}
 
-    private get multiversesConfig() {
-        return this.database.multiversesConfig;
+    private get planetsConfig() {
+        return this.database.planetsConfig;
     }
 
-    getLocale(multiverseId: string) {
-        return this.multiversesConfig.findFirst({
+    getLocale(planetId: string) {
+        return this.planetsConfig.findFirst({
             where: {
-                multiverseId
+                planetId
             }
         });
     }

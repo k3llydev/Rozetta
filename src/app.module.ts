@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { join as joinPath } from 'path';
+import { NecordModule } from 'necord';
 
 // Configuration
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -9,7 +9,6 @@ import Configuration from './config';
 import { ApiModule } from './api/api.module';
 
 // Discord bot
-import { NecordModule } from 'necord';
 import { BotModule } from './bot/bot.module';
 
 // Cache layer

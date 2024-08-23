@@ -13,7 +13,7 @@ async function bootstrap() {
             format: winston.format.combine(
               winston.format.timestamp(),
               winston.format.ms(),
-              WinstonUtils.format.nestLike('TheRealMultiverse', {
+              WinstonUtils.format.nestLike('Rozzeta', {
                 colors: true,
                 prettyPrint: true
               })

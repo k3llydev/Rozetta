@@ -1,10 +1,10 @@
 import * as moment from 'moment';
 import { hashValue } from '@/database/security';
 
-export const multiverseId = (name: string) => {
+export const planetId = (name: string) => {
     const hashedName = hashValue(name).toUpperCase();
     const generationNumber = moment().format('YY');
-    return `MID${generationNumber}${hashedName}`;
+    return `PID${generationNumber}${hashedName}`;
 };
 
 export const userId = (discordId: string) => {

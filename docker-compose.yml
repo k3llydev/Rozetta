@@ -3,7 +3,7 @@ version: '1'
 services:
 
   redis:
-    container_name: Redis
+    container_name: cache
     image: redis
     env_file:
       - .env
@@ -13,7 +13,7 @@ services:
       - redis:/data
 
   mysql:
-    container_name: MySQL
+    container_name: database
     build:
       context: ./.docker/mysql/
       args:
@@ -21,7 +21,6 @@ services:
         MYSQL_PASSWORD: xd
         MYSQL_DATABASE: xd
         MYSQL_ROOT_PASSWORD: xd
-    container_name: mysql
     restart: always
     env_file:
       - .env
@@ -29,7 +28,7 @@ services:
       - 3306:3306 # TODO: Remove once deploying to prod
 
   app:
-    container_name: NodeJS
+    container_name: app
     build: ./
     env_file:
       - .env
@@ -38,7 +37,7 @@ services:
       - redis
 
   nginx:
-    container_name: NGINX
+    container_name: httpserver
     build: ./.docker/nginx/
     env_file:
       - .env
@@ -47,7 +46,7 @@ services:
 
   # TODO: Remove when deploying to prod
   adminer:
-    container_name: AdminerSQL
+    container_name: adminersql
     image: adminer
     restart: always
     ports:

@@ -1,45 +1,44 @@
 <div align="center">
-  <a href="http://therealmultiverse.com/" target="blank">
+  <a href="https://invite.rozetta.gg/" target="blank">
     <img
-      alt="The Real Multiverse"
-      src="https://cdn.discordapp.com/icons/820396713297838122/f33aff504d6463c795432a058335719d.webp"
+      alt="Luma"
+      src="https://cdn.discordapp.com/icons/820396713297838122/aed8377dba68366eb4ce197c230450fb.webp?size=96"
     />
   </a>
-  <h1>The Real Multiverse</h1>
+  <h3>Rozetta</h3>
   <p align="center">An Open Source Discord bot.</p>
 </div>
 
 <div align="center">
   <a
-    href="https://github.therealmultiverse.com/"
+    href="https://source.rozetta.gg/"
     target="_blank"
   >
     <img
-      src="https://img.shields.io/github/package-json/v/k3llydev/TheRealMultiverse/master?label=Version&color=purple"
+      src="https://img.shields.io/github/package-json/v/k3llydev/Rozetta/development?label=Version&color=6EADBF"
       alt="Version"
     />
   </a>
   <a
-    href="https://coveralls.io/github/k3llydev/TheRealMultiverse?branch=master"
+    href="https://coveralls.io/github/k3llydev/Rozetta?branch=development"
     target="_blank"
   >
     <img
-      src="https://coveralls.io/repos/github/k3llydev/TheRealMultiverse/badge.svg?branch=master&label=Coverage"
+      src="https://coveralls.io/repos/github/k3llydev/Rozetta/badge.svg?branch=development&label=Coverage&color=6EADBF"
       alt="Coverage"
     />
   </a>
   <a
-    href="https://github.com/k3llydev/TheRealMultiverse/LICENSE.md"
+    href="https://github.com/k3llydev/Rozetta/LICENSE"
     target="_blank"
   >
     <img
-      src="https://img.shields.io/github/license/k3llydev/TheRealMultiverse?label=License&color=purple
-"
+      src="https://img.shields.io/github/license/k3llydev/Rozetta?label=License&color=6EADBF"
       alt="License"
     />
   </a>
   <a
-    href="https://join.therealmultiverse.com"
+    href="https://invite.rozetta.gg/"
     target="_blank"
   >
     <img
@@ -50,40 +49,44 @@
 
 </div>
 
-## Installation
+## Setup
 
-There's a npm command ready for you to prepare the project:
+1. Duplicate `.env.example` and rename to `.env`. Provide all the values.
+
+    | Key                            | Description                                                               |
+    | ---------------------          | ------------------------------------------------------------------------- |
+    | DISCORD_API_TOKEN              | Obtained from https://developer.discord.com                               |
+    | DISCORD_MAIN_GUILD_ID          | Based on Discord's API docs, provide a `GUILD_ID` to be the "main server" |
+    | SHARDING_TOTAL_SHARDS          | Number of shards for the application to be split on                       |
+    | SHARDING_INITIAL_PORT          | Starting port for the exposed HTTP API, usually `5000`                    |
+    | SHARDING_PORT_INCREMENT        | Number to add to the HTTP API port count. Recommended value is `1`        |
+
+2. Run `npm run setup`.
+
+## Building Dockerfile
+
+This project is ready to be run with Docker, the command is the following:
 
 ```bash
-npm run setup
+npm run docker:build
 ```
 
-## Running (development)
+This will create the required containers for the application on an empty state, database needs to be prepared next.
 
-The easiest way to run is with Docker but first you need to setup the project.
+## Database migration
+
+To initialize the database on a new instance, the following command must be executed before running the application:
 
 ```bash
-npm run build
+npm run database:init
 ```
 
-```bash
-docker compose up
-```
+## Running
 
-**Setup database**
+Once all previous steps are done, you can start the application with the following command:
 
 ```bash
-npm run build:database
-```
-
-
-
-## Migrating database
-
-To start a migration, run:
-
-```bash
-npm run database:build
+npm start
 ```
 
 <!-- ## Running the app
@@ -112,14 +115,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-TheRealMultiverse is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Contributing
 
 Read `CONTRIBUTING.md`.
 
 ## License
 
-TheRealMultiverse is [MIT licensed](LICENSE).
+Rozetta is [MIT licensed](LICENSE).

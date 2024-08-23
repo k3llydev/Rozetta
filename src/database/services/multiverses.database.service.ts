@@ -8,20 +8,20 @@ type CreateProps = {
 }
 
 @Injectable()
-export class DatabaseMultiversesService {
+export class DatabaseplanetsService {
 
     constructor(
         private readonly database: DatabaseConnectionService
     ) {}
 
-    private get multiverses() {
-        return this.database.multiverses;
+    private get planets() {
+        return this.database.planets;
     }
 
     create({ name, ownerId }: CreateProps) {
-        return this.multiverses.create({
+        return this.planets.create({
             data: {
-                id: Generators.multiverseId(name),
+                id: Generators.planetId(name),
                 name,
                 points: 0,
                 xp: 0,
@@ -42,7 +42,7 @@ export class DatabaseMultiversesService {
     }
 
     isNameUsed(name: string) {
-        return this.multiverses.findFirst({
+        return this.planets.findFirst({
             where: {
                 name
             }
@@ -50,7 +50,7 @@ export class DatabaseMultiversesService {
     }
 
     getByOwnerId(ownerId: string) {
-        return this.multiverses.findMany({
+        return this.planets.findMany({
             where: {
                 ownerId
             }

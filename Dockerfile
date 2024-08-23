@@ -1,8 +1,8 @@
 # Build application
 FROM node:alpine as build
 
-WORKDIR /tmp/therealmultiverse
-COPY . /tmp/therealmultiverse
+WORKDIR /tmp/rozetta
+COPY . /tmp/rozetta
 RUN npm install
 RUN npm run build
 
@@ -10,17 +10,17 @@ RUN npm run build
 FROM node:alpine
 
 # Set metadata
-LABEL title="TheRealMultiverse @ Discord"
-LABEL description="A bot used to handle the entire multiverse around Discord."
+LABEL title="Rozetta @ Discord"
+LABEL description=""
 LABEL authors="https://k3lly.dev"
 LABEL version="1.0.0"
 
 # Set configurations
-WORKDIR /opt/therealmultiverse
+WORKDIR /opt/rozetta
 
 # Move transpiled code into container
-COPY --from=build /tmp/therealmultiverse/dist /opt/therealmultiverse
-COPY --from=build /tmp/therealmultiverse/node_modules /opt/therealmultiverse/node_modules
+COPY --from=build /tmp/rozetta/dist /opt/rozetta
+COPY --from=build /tmp/rozetta/node_modules /opt/rozetta/node_modules
 
 # Install dependencies for built application
 RUN npm install
