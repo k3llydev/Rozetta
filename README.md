@@ -10,43 +10,22 @@
 </div>
 
 <div align="center">
-  <a
-    href="https://source.rozetta.gg/"
-    target="_blank"
-  >
-    <img
-      src="https://img.shields.io/github/package-json/v/k3llydev/Rozetta/development?label=Version&color=6EADBF"
-      alt="Version"
-    />
-  </a>
-  <a
-    href="https://coveralls.io/github/k3llydev/Rozetta?branch=development"
-    target="_blank"
-  >
-    <img
-      src="https://coveralls.io/repos/github/k3llydev/Rozetta/badge.svg?branch=development&label=Coverage&color=6EADBF"
-      alt="Coverage"
-    />
-  </a>
-  <a
-    href="https://github.com/k3llydev/Rozetta/LICENSE"
-    target="_blank"
-  >
-    <img
-      src="https://img.shields.io/github/license/k3llydev/Rozetta?label=License&color=6EADBF"
-      alt="License"
-    />
-  </a>
-  <a
-    href="https://invite.rozetta.gg/"
-    target="_blank"
-  >
-    <img
-      src="https://img.shields.io/discord/820396713297838122?label=Discord"
-      alt="Discord"
-    />
-  </a>
-
+  <img
+    src="https://img.shields.io/github/package-json/v/k3llydev/Rozetta/development?label=Version&color=6EADBF"
+    alt="Version"
+  />
+  <img
+    src="https://coveralls.io/repos/github/k3llydev/Rozetta/badge.svg?branch=development&label=Coverage&color=6EADBF"
+    alt="Coverage"
+  />
+  <img
+    src="https://img.shields.io/github/license/k3llydev/Rozetta?label=License&color=6EADBF"
+    alt="License"
+  />
+  <img
+    src="https://img.shields.io/discord/820396713297838122?label=Discord"
+    alt="Discord"
+  />
 </div>
 
 ## Setup
